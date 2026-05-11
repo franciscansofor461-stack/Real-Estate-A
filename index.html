@@ -225,7 +225,16 @@
                     <h3 class="prop-name">The Zenith Penthouses</h3>
                     <p style="color: var(--text-muted); margin-bottom: 20px;">Automated 4-bedroom sanctuary with panoramic ocean views and private elevator.</p>
                     <span class="prop-price">₦550,000,000</span>
-                    <a href="#booking" class="btn-outline">Request Brochure</a>
+                    <a href="#" class="btn-outline"
+   onclick="sendToWhatsApp(
+   'The Zenith Penthouses',
+   'Ikoyi, Lagos',
+   '4-bedroom automated luxury penthouse with panoramic ocean views and private elevator',
+   '₦550,000,000'
+   )">
+   Check Availability
+</a>
+                    
                 </div>
             </div>
             <div class="property-card">
@@ -237,7 +246,15 @@
                     <h3 class="prop-name">Aura Modern Mansions</h3>
                     <p style="color: var(--text-muted); margin-bottom: 20px;">Eco-friendly 6-bedroom architectural masterpiece with heated infinity pool.</p>
                     <span class="prop-price">₦920,000,000</span>
-                    <a href="#booking" class="btn-outline">Check Availability</a>
+                    <a href="#" class="btn-outline"
+   onclick="sendToWhatsApp(
+   'Aura Modern Mansions',
+   'Maitama, Abuja',
+   'Eco-friendly 6-bedroom architectural masterpiece with heated infinity pool',
+   '₦920,000,000'
+   )">
+   Check Availability
+</a>
                 </div>
             </div>
         </div>
@@ -355,6 +372,18 @@
 
     // WhatsApp Number
     const whatsappNumber = "2349017430885";
+    function sendToWhatsApp(name, location, description, price) {
+    const message = `🏡 PROPERTY ENQUIRY
+🏷️ Name: ${name}
+📍 Location: ${location}
+📝 Details: ${description}
+💰 Price: ${price}`;
+
+    window.open(
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+        "_blank"
+    );
+}
 
     // FORM SUBMIT → WHATSAPP
     document.querySelector("form").addEventListener("submit", function(e) {
@@ -377,7 +406,7 @@ Budget: ${budget}`;
     });
 
     // ALL BUTTONS → WHATSAPP (CTA override)
-    document.querySelectorAll(".btn-outline, .hero a, .sticky-bar a").forEach(btn => {
+    document.querySelectorAll(".btn-outline").forEach(btn => {
         btn.addEventListener("click", function(e) {
             if (this.getAttribute("href") === "#booking") return;
 
@@ -400,6 +429,8 @@ Budget: ${budget}`;
         const box = document.getElementById("offer-box");
         box.style.display = box.style.display === "block" ? "none" : "block";
     }
+    
 </script>
+
 </body>
 </html>
