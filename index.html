@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Prime | Luxury Real Estate Funnel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Bodoni+Moda:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #000000;
+            --accent: #B89552;
+            --bg: #FFFFFF;
+            --bg-alt: #F9F9F9;
+            --text: #121212;
+            --text-muted: #666666;
+            --border: rgba(0,0,0,0.08);
+            --glass: rgba(255, 255, 255, 0.85);
+            --font-serif: 'Bodoni Moda', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        /* --- HERO WITH BACKGROUND IMAGE & FORM --- */
+        .hero { 
+            min-height: 100vh; padding: 140px 5% 80px;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center;
+            position: relative;
+            background: linear-gradient(to right, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center right;
+            background-attachment: fixed;
+        }
+        
+        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 25px; }
+        .hero-text h1 i { font-family: var(--font-serif); font-weight: 400; color: var(--accent); }
+        .hero-text p { font-size: 1.2rem; color: #333; margin-bottom: 35px; max-width: 550px; font-weight: 500; }
+        
+        .trust-pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; background: rgba(0,0,0,0.05); border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; }
+
+        /* THE FORM (ABOVE THE FOLD) */
+        .hero-form {
+            background: #fff; padding: 45px; border-radius: 28px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.12); border: 1px solid var(--border);
+            position: relative; z-index: 2;
+        }
+        .hero-form h2 { font-size: 1.7rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; }
+        .hero-form p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-full { grid-column: span 2; }
+        input, select {
+            width: 100%; padding: 15px 18px; border-radius: 12px; border: 1px solid #EAEAEA;
+            background: #FDFDFD; font-family: inherit; font-size: 0.95rem; transition: 0.3s;
+        }
+        input:focus { border-color: var(--accent); outline: none; background: #fff; }
+
+        .btn-main {
+            width: 100%; background: var(--primary); color: white; padding: 20px; border: none;
+            border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;
+            margin-top: 15px; transition: 0.4s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-main:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(184, 149, 82, 0.3); }
+
+        /* --- LISTING SECTION --- */
+        .section { padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-tag { color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 10px; }
+        
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 35px; }
+        .property-card { border-radius: 24px; overflow: hidden; background: white; border: 1px solid var(--border); transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .property-card:hover { transform: translateY(-12px); box-shadow: 0 40px 80px rgba(0,0,0,0.08); }
+        .prop-img { width: 100%; height: 350px; object-fit: cover; transition: 0.8s; }
+        .property-card:hover .prop-img { transform: scale(1.05); }
+        .prop-body { padding: 35px; }
+        .prop-name { font-size: 1.7rem; font-weight: 800; margin-bottom: 10px; }
+        .prop-price { font-size: 1.9rem; font-weight: 700; color: var(--accent); margin-bottom: 25px; display: block; border-top: 1px solid #eee; padding-top: 20px; }
+        .btn-outline { display: block; width: 100%; text-align: center; padding: 16px; border: 2px solid var(--primary); color: var(--primary); text-decoration: none; font-weight: 700; border-radius: 12px; transition: 0.3s; }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* --- TESTIMONIAL SECTION --- */
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .testi-card { background: white; padding: 45px; border-radius: 28px; border: 1px solid var(--border); position: relative; }
+        .quote-mark { font-family: var(--font-serif); font-size: 4rem; color: var(--accent); opacity: 0.15; position: absolute; top: 20px; left: 30px; }
+        .testi-text { font-size: 1.1rem; color: #444; line-height: 1.8; margin-bottom: 35px; position: relative; font-weight: 500; font-style: italic; }
+        .author-box { display: flex; align-items: center; gap: 15px; }
+        .author-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; background: #eee; }
+        .author-info h4 { font-size: 1rem; font-weight: 800; }
+        .author-info p { font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+
+        /* --- CONVERSION FLOATER --- */
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 30px rgba(37,211,102,0.3); z-index: 1000; text-decoration: none; transition: 0.3s; }
+        .wa-float:hover { transform: scale(1.1); }
+
+        .sticky-bar {
+            position: fixed; bottom: 0; width: 100%; background: var(--primary); padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 999;
+            color: white; transform: translateY(100%); transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .sticky-bar.active { transform: translateY(0); }
+
+        @media (max-width: 992px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; background-attachment: scroll; }
+            .hero-text p { margin: 0 auto 30px; }
+            .hero-form { margin: 0 auto; max-width: 500px; padding: 30px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-full { grid-column: span 1; }
+            .property-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 380px) {
+            nav { padding: 16px 4%; }
+            .logo { font-size: 1rem; }
+            .btn-main { padding: 14px 18px; font-size: 0.9rem; }
+            .hero { padding: 100px 4% 50px; gap: 20px; min-height: auto; }
+            .hero-text h1 { font-size: clamp(2rem, 10vw, 2.6rem); letter-spacing: -1px; }
+            .hero-text p { font-size: 1rem; max-width: 100%; margin-bottom: 24px; }
+            .hero-stats { display: grid; grid-template-columns: 1fr; gap: 12px; justify-items: center; margin-top: 20px; }
+            .hero-stats-divider { border-left: none; padding-left: 0; text-align: center; }
+            .hero-form { padding: 22px 18px; border-radius: 22px; }
+            .hero-form h2 { font-size: 1.45rem; }
+            .hero-form p { font-size: 0.95rem; }
+            .form-grid { gap: 12px; }
+            .prop-img { height: 240px; }
+            .prop-body { padding: 24px; }
+            .prop-name { font-size: 1.4rem; }
+            .prop-price { font-size: 1.55rem; }
+            .testi-card { padding: 28px 22px; }
+            .testi-text { font-size: 1rem; }
+            .author-box { gap: 12px; }
+            .author-info h4 { font-size: 0.95rem; }
+            .author-info p { font-size: 0.75rem; }
+            .section-header h2 { font-size: 2rem; }
+            .sticky-bar { flex-wrap: wrap; gap: 10px; padding: 12px 4%; justify-content: center; }
+            .sticky-bar > div { text-align: center; }
+            .sticky-bar a.btn-main { padding: 10px 18px; }
+            .wa-float { width: 55px; height: 55px; bottom: 18px; right: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">PRESTIGE<span>PRIME</span></a>
+        <a href="#booking" class="btn-main" style="width: auto; padding: 10px 25px; margin-top: 0; font-size: 0.75rem;">Inquire Now</a>
+    </nav>
+
+    <section class="hero" id="booking">
+        <div class="hero-text">
+            <div class="trust-pill">
+                <span style="color: #FFB800;">★★★★★</span>
+                <span>Trusted by 500+ Luxury Investors</span>
+            </div>
+            <h1>Secure <i>Premium</i> Real Estate In Prime Locations.</h1>
+            <p>Direct access to off-market luxury listings and high-yield smart homes with guaranteed legal titles.</p>
+            
+            <div class="hero-stats">
+                <div>
+                    <h4 style="font-size: 1.8rem; font-weight: 800;">25%</h4>
+                    <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent);">Annual ROI</p>
+                </div>
+                <div class="hero-stats-divider">
+                    <h4 style="font-size: 1.8rem; font-weight: 800;">100%</h4>
+                    <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent);">Verified Titles</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-form">
+            <h2>Book a Private Tour</h2>
+            <p>Priority access to our newly launched inventory.</p>
+            <form>
+                <div class="form-grid">
+                    <div class="form-full"><input type="text" placeholder="Full Name" required></div>
+                    <div class="form-full"><input type="tel" placeholder="Phone Number" required></div>
+                    <div class="form-full"><input type="email" placeholder="Email Address" required></div>
+                    <div>
+                        <select required>
+                            <option value="">Property Type</option>
+                            <option>Smart Apartment</option>
+                            <option>Luxury Mansion</option>
+                            <option>Investment Land</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select required>
+                            <option value="">Budget Range</option>
+                            <option>₦100M - 250M</option>
+                            <option>₦250M - 500M</option>
+                            <option>₦500M - 1B+</option>
+                        </select>
+                    </div>
+                </div>
+               <button type="submit" class="btn-main">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-alt);">
+        <div class="section-header">
+            <span class="section-tag">Exclusive Portfolio</span>
+            <h2 style="font-size: 2.8rem; font-weight: 800;">Featured Smart Homes</h2>
+        </div>
+        <div class="property-grid">
+            <div class="property-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" class="prop-img">
+                </div>
+                <div class="prop-body">
+                    <p style="color: var(--accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 5px;">📍 IKOYI, LAGOS</p>
+                    <h3 class="prop-name">The Zenith Penthouses</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Automated 4-bedroom sanctuary with panoramic ocean views and private elevator.</p>
+                    <span class="prop-price">₦550,000,000</span>
+                    <a href="#booking" class="btn-outline">Request Brochure</a>
+                </div>
+            </div>
+            <div class="property-card">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" class="prop-img">
+                </div>
+                <div class="prop-body">
+                    <p style="color: var(--accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 5px;">📍 MAITAMA, ABUJA</p>
+                    <h3 class="prop-name">Aura Modern Mansions</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Eco-friendly 6-bedroom architectural masterpiece with heated infinity pool.</p>
+                    <span class="prop-price">₦920,000,000</span>
+                    <a href="#booking" class="btn-outline">Check Availability</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <span class="section-tag">Success Stories</span>
+            <h2 style="font-size: 2.8rem; font-weight: 800;">Trusted By Global Investors</h2>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testi-card">
+                <div class="quote-mark">“</div>
+                <p class="testi-text">"The ROI potential convinced me immediately. I secured two units in Ikoyi and the value appreciated by 22% in just 9 months. Professional service at its peak."</p>
+                <div class="author-box">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="author-img">
+                    <div class="author-info">
+                        <h4>Dr. Emeka Nwosu</h4>
+                        <p>Diaspora Investor (UK)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="quote-mark">“</div>
+                <p class="testi-text">"Prestige Prime delivered my smart home exactly as promised, on time, and with all documentation verified. Finding a developer you can trust is hard; I found one here."</p>
+                <div class="author-box">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704c" class="author-img">
+                    <div class="author-info">
+                        <h4>Sarah Alabi</h4>
+                        <p>Business Executive</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="text-align: center; background: #000; color: #fff;">
+        <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; margin-bottom: 20px;">Your Legacy Starts Here.</h2>
+        <p style="margin-bottom: 40px; opacity: 0.8; max-width: 600px; margin: 0 auto;">Prices are projected to increase by 15% next quarter. Don't wait to buy real estate, buy real estate and wait.</p>
+        <a href="#booking" class="btn-main" style="display: inline-block; width: auto; padding: 20px 60px; background: var(--accent);">Schedule Consultation</a>
+    </section>
+
+    <!-- FLOATING OFFER ICON -->
+<div id="offer-icon" onclick="toggleOffer()" style="
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: var(--accent);
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    cursor: pointer;
+    z-index: 9999;
+">
+    %
+</div>
+
+<!-- OFFER POPUP -->
+<div id="offer-box" style="
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    width: 280px;
+    background: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+">
+    <h3 style="margin-bottom: 10px;">🔥 Early Access Deal</h3>
+    <p style="font-size: 0.85rem; opacity: 0.8;">
+        Get 5% discount on first 3 bookings. Limited slots available.
+    </p>
+    <a href="#booking" style="
+        display: block;
+        margin-top: 15px;
+        background: var(--accent);
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+    ">Claim Now</a>
+</div>
+
+    <a href="https://wa.me/yournumber" class="wa-float">
+        <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.089-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+    </a>
+
+    <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- ANIMATIONS ---
+    gsap.from('.hero-text', { opacity: 0, x: -50, duration: 1.5, ease: "power3.out" });
+    gsap.from('.hero-form', { opacity: 0, y: 50, duration: 1.5, ease: "power3.out", delay: 0.3 });
+
+    // Scroll reveals
+    gsap.utils.toArray('.property-card, .testi-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: { trigger: card, start: "top 90%" },
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            delay: i * 0.1
+        });
+    });
+
+    // WhatsApp Number
+    const whatsappNumber = "2349017430885";
+
+    // FORM SUBMIT → WHATSAPP
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const name = this.querySelector('input[placeholder="Full Name"]').value;
+        const phone = this.querySelector('input[placeholder="Phone Number"]').value;
+        const email = this.querySelector('input[placeholder="Email Address"]').value;
+        const property = this.querySelectorAll('select')[0].value;
+        const budget = this.querySelectorAll('select')[1].value;
+
+        const message = `🏡 NEW BOOKING REQUEST%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Email: ${email}%0A
+Property Type: ${property}%0A
+Budget: ${budget}`;
+
+        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    });
+
+    // ALL BUTTONS → WHATSAPP (CTA override)
+    document.querySelectorAll(".btn-outline, .hero a, .sticky-bar a").forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            if (this.getAttribute("href") === "#booking") return;
+
+            e.preventDefault();
+            const msg = "Hello, I’m interested in your luxury property listings.";
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+        });
+    });
+
+    // Sticky Bar Logic
+    ScrollTrigger.create({
+        trigger: ".hero",
+        start: "bottom 50%",
+        onEnter: () => document.getElementById('offer-icon').style.display = 'flex',
+        onLeaveBack: () => document.getElementById('offer-icon').style.display = 'none'
+    });
+
+    // OFFER POPUP TOGGLE
+    function toggleOffer() {
+        const box = document.getElementById("offer-box");
+        box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+</script>
+</body>
+</html>
